@@ -14,4 +14,4 @@ This project makes use of HTML, CSS and JavaScript
 
 This project is deployed on GitHub Pages:
 
-- ADD LINK HERE
+- https://jesseoneill-dev.github.io/se_project_todo-app/
