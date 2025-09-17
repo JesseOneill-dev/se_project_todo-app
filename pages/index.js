@@ -17,12 +17,10 @@ const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 
 const addTodoPopupEl = new PopupWithForm({
   popupSelector: "#add-todo-popup",
-  handleFormSubmit: (evt) => {
+  handleFormSubmit: (inputValues) => {
     const id = uuidv4();
-    const name = addTodoPopupEl._getInputValues().name;
-    // evt.target.name.value;
-    const dateInput = addTodoPopupEl._getInputValues().date;
-    // evt.target.date.value;
+    const name = inputValues.name;
+    const dateInput = inputValues.date;
     // Create a date object and adjust for timezone
     const date = new Date(dateInput);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
@@ -35,8 +33,8 @@ const addTodoPopupEl = new PopupWithForm({
 addTodoPopupEl.setEventListeners();
 
 const section = new Section({
-  items: [initialTodos],
-  renderer: () => {
+  items: initialTodos,
+  render: () => {
     // console.log(initialTodos);
     // initialTodos.forEach((initialTodos) => {
     //   const todo = generateTodo(initialTodos);
@@ -44,10 +42,10 @@ const section = new Section({
     //   }
     // );
   },
-  containSelector: ".todos_list",
+  containerSelector: ".todos__list",
 });
 
-section.rendererItems();
+section.renderItems();
 
 // const openModal = (modal) => {
 //   modal.classList.add("popup_visible");
@@ -65,10 +63,8 @@ function handleDelete(completed) {
   if (completed) {
     todoCounter.updateCompleted(false);
     todoCounter.updateTotal(false);
-    console.log("true");
   } else {
     todoCounter.updateTotal(false);
-    console.log("false");
   }
 }
 
