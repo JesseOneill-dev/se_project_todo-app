@@ -9,4 +9,7 @@ export default class Section {
       this._render(item);
     });
   }
+  addItem(todo) {
+    this._container.append(todo);
+  }
 }

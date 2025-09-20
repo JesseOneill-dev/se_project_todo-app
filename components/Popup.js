@@ -6,7 +6,6 @@ export default class Popup {
 
   _handleEscapeClose = (evt) => {
     if (evt.key === "Escape") {
-      console.log(this);
       this.close();
     }
   };
@@ -21,8 +20,13 @@ export default class Popup {
   }
 
   setEventListeners() {
-    this._popupCloseBtn.addEventListener("click", () => {
-      this.close();
+    this._popupElement.addEventListener("click", (evt) => {
+      if (
+        evt.target === this._popupElement ||
+        evt.target === this._popupCloseBtn
+      ) {
+        this.close();
+      }
     });
   }
 }

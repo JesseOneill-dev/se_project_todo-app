@@ -30,17 +30,35 @@ const addTodoPopupEl = new PopupWithForm({
   },
 });
 
+// The logic in this function should all be handled in the Todo class.
+const generateTodo = (data) => {
+  const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
+  const todoElement = todo.getView();
+  return todoElement;
+};
+
+// function handleEscapeClose(evt) {
+//   if (evt.key === "Escape") {
+//     console.log("esc");
+//   }
+// }
+
+const renderTodo = (item) => {
+  const todo = generateTodo(item);
+  section.addItem(todo);
+};
+
 addTodoPopupEl.setEventListeners();
 
 const section = new Section({
   items: initialTodos,
-  render: () => {
-    // console.log(initialTodos);
+  render: (item) => {
     // initialTodos.forEach((initialTodos) => {
     //   const todo = generateTodo(initialTodos);
     //   todosList.append(todo);
     //   }
     // );
+    renderTodo(item);
   },
   containerSelector: ".todos__list",
 });
@@ -68,25 +86,6 @@ function handleDelete(completed) {
   }
 }
 
-// The logic in this function should all be handled in the Todo class.
-const generateTodo = (data) => {
-  const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
-  const todoElement = todo.getView();
-  return todoElement;
-};
-
-// function handleEscapeClose(evt) {
-//   if (evt.key === "Escape") {
-//     console.log("esc");
-//   }
-// }
-
-const renderTodo = (item) => {
-  const todo = generateTodo(item);
-  todosList.append(todo);
-  // console.log(addTodoPopupEl._getInputValues());
-};
-
 addTodoButton.addEventListener("click", () => {
   addTodoPopupEl.open();
 });
@@ -113,9 +112,9 @@ addTodoButton.addEventListener("click", () => {
 //   addTodoPopupEl.close();
 // });
 
-initialTodos.forEach((item) => {
-  renderTodo(item);
-});
+// initialTodos.forEach((item) => {
+//   renderTodo(item);
+// });
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 newTodoValidator.enableValidation();
